@@ -42,6 +42,15 @@
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.0.2.Final</version>
+				<executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+				
 				<configuration>
 					<force>true</force>
 					<hostname>${jboss-as.deploy.hostname}</hostname>
