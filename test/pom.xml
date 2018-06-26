@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.allianz.agcs</groupId>
+	<artifactId>test</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>test Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<jboss-as.deploy.hostname>localhost</jboss-as.deploy.hostname>  <!-- Where to deploy. -->
+		<jboss-as.deploy.user>admin</jboss-as.deploy.user>
+		<jboss-as.deploy.pass>${jboss.eap.admin.password}</jboss-as.deploy.pass>
+		<deploy.artifact.name>${project.build.finalName}</deploy.artifact.name>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>test</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<warName>${deploy.artifact.name}</warName>
+				</configuration>
+			</plugin>
+
+			<!-- JBoss AS plugin to deploy the war. -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.0.2.Final</version>
+				<configuration>
+					<force>true</force>
+					<hostname>${jboss-as.deploy.hostname}</hostname>
+					<username>${jboss-as.deploy.user}</username>
+					<password>${jboss.eap.admin.password}</password>
+					<fileNames>
+						<fileName>target/${deploy.artifact.name}.war</fileName>
+					</fileNames>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Internal repo</name>
+			<url>file://${user.home}/remote_repo/repository</url>
+		</repository>
+	</distributionManagement>
+
+</project>
