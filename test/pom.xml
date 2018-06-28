@@ -73,21 +73,34 @@
 		</repository>
 	</distributionManagement>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<!-- use mvn cobertura:cobertura to generate cobertura reports -->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+	<profiles>
+		<!-- Jenkins by default defines a property BUILD_NUMBER which is used to 
+			enable the profile. -->
+		<profile>
+			<id>jenkins</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>cobertura-maven-plugin</artifactId>
+						<version>2.2</version>
+						<configuration>
+							<formats>
+								<format>xml</format>
+							</formats>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>cobertura</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
