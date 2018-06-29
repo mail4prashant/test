@@ -1,7 +1,5 @@
 package com.allianz.test;
 
-import java.math.BigDecimal;
-
 public class SayHiService {
 
 	private final static String HI = "Hi";
