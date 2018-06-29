@@ -80,13 +80,17 @@
 					</executions>
 				</plugin>
 			</plugins>
-
 		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+			</plugin>
+
 		</plugins>
 	</build>
 
